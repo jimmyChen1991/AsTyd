@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="#f2f2f2"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/topbarheight"
+            android:background="@drawable/topbar">
+
+        <ImageButton
+                android:id="@+id/button_scan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dip"/>
+
+        <TextView
+                android:id="@+id/textview_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:textSize="21sp"
+                android:text="销售主页"
+                android:textColor="#333333"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:layout_below="@+id/header"
+            android:layout_marginTop="15dip"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:background="#ffffff">
+
+        <TextView
+                android:id="@+id/title1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dip"
+                android:layout_marginTop="20dip"
+                android:textSize="22sp"
+                android:text="免税额度查询"
+                android:textColor="#c28d56"/>
+
+        <TextView
+                android:id="@+id/title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="21sp"
+                android:layout_marginLeft="30dip"
+                android:layout_marginTop="30dip"
+                android:layout_below="@+id/title1"
+                android:text="身份证号:"
+                android:textColor="#666666"/>
+
+        <EditText
+                android:id="@+id/card"
+                android:layout_toRightOf="@+id/title2"
+                android:layout_marginTop="25dip"
+                android:layout_below="@+id/title1"
+                android:layout_marginRight="10dip"
+                android:layout_marginLeft="20dip"
+                android:layout_height="wrap_content"
+                android:layout_width="490dip"
+                android:gravity="fill_horizontal"
+                android:layout_weight="1"
+                android:hint=" 输入顾客身份证号"
+                android:singleLine="true"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        <Button android:id="@+id/serch"
+                android:layout_width="match_parent"
+                android:layout_height="43dip"
+                android:layout_below="@+id/title1"
+                android:background="@drawable/button_corner"
+                android:text="查询"
+                android:textSize="22sp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="25dip"
+                android:layout_toRightOf="@+id/card"
+                android:layout_marginRight="14dip"
+                android:layout_marginLeft="10dip"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/condition"
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+            android:layout_below="@+id/search"
+            android:layout_marginTop="15dip"
+            android:background="#ffffff">
+
+        <TextView
+                android:id="@+id/title3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:layout_marginLeft="30dip"
+                android:layout_centerVertical="true"
+                android:text="查看限购条件"
+                android:textColor="#c28d56"/>
+
+        <ImageButton
+                android:id="@+id/buttontosee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttonsaler"
+                android:layout_marginRight="30dip"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dip"/>
+    </RelativeLayout>
+
+<Button
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+            android:text="退出账户"
+            android:textSize="22sp"
+            android:background="@drawable/button_corner"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="30dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginLeft="20dip"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"/>
+
+    <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="250dip"
+            android:background="@drawable/salerbg"
+            android:layout_below="@+id/toolbar"
+            android:layout_alignParentLeft="true">
+
+        <ImageButton
+                android:id="@+id/headerimage"
+                android:layout_width="120dip"
+                android:layout_height="120dip"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                android:layout_marginTop="20dip"/>
+
+        <TextView
+                android:id="@+id/headertitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="180dip"
+                android:layout_below="@+id/headerimage"
+                android:textSize="21sp"
+                android:text="销售主页"
+                android:textColor="#c28d56"
+                />
+    </RelativeLayout>
+</RelativeLayout>
