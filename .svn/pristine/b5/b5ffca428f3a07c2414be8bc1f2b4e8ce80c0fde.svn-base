@@ -7,7 +7,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.hhyg.TyClosing.R;
-import com.hhyg.TyClosing.config.Constants;
 import com.hhyg.TyClosing.fragment.AllShopBaseFragment;
 import com.hhyg.TyClosing.fragment.AllShopBrandFragment;
 import com.hhyg.TyClosing.fragment.AllShopCateFragment;
@@ -21,26 +20,22 @@ import com.hhyg.TyClosing.mgr.ClosingRefInfoMgr;
 import com.hhyg.TyClosing.mgr.UserTrackMgr;
 import com.hhyg.TyClosing.presenter.AllshopPresenter;
 import com.hhyg.TyClosing.presenter.BindPrivilegeCodePresenter;
-import com.hhyg.TyClosing.presenter.IsprivilegeUserPresenter;
 import com.hhyg.TyClosing.ui.view.AllShopTopEdit;
 import com.hhyg.TyClosing.ui.view.ProgressBar;
 import com.hhyg.TyClosing.ui.view.SimpleProgressBar;
 import com.hhyg.TyClosing.ui.view.TopEdit;
 import com.hhyg.TyClosing.view.AllShopView;
 import com.hhyg.TyClosing.view.BindPrivilegeView;
-import com.hhyg.TyClosing.view.IsPrivilegeUserView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -48,30 +43,26 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-public class AllShopActivity extends Activity implements OnClickListener,IsPrivilegeUserView{
+public class AllShopActivity extends Activity implements OnClickListener,BindPrivilegeView{
 	private ArrayList<AllShopBaseFragment> mFragList;
 	private AllshopPresenter mAllshopPresenter;
-	private IsprivilegeUserPresenter mIsprivilegeUserPresenter;
+	private BindPrivilegeCodePresenter mBindPrivilegePresenter;
 	private ImageButton brandBtn;
 	private ImageButton cateBtn;
 	private ImageButton homeBtn;
 	private ImageButton scanBtn;
 	private ImageButton shopcatBtn;
-	private ImageButton hndfBtn;
 	private TextView shopName;
 	private TextView salerName;
 	private PullToRefreshScrollView mPullToRefreshScrollView;
 	private ProgressBar mProgressBar;
 	private TopEdit topEdit;
-	private ViewGroup mTop;
-	private ImageView privilege_icon;
-	private TextView privilege_tv;
 	private boolean postable = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.allshop);
-		mFragList = new ArrayList<>();
+		mFragList = new ArrayList<AllShopBaseFragment>();
 		mAllshopPresenter = new AllshopPresenter();
 		topEdit = new AllShopTopEdit(this);
 		topEdit.setBackListener(this);
@@ -80,20 +71,20 @@ public class AllShopActivity extends Activity implements OnClickListener,IsPrivi
 		findView();
 		mAllshopPresenter.attach(new FirstView());
 		mAllshopPresenter.fetchLastestAllShopData();
-		mIsprivilegeUserPresenter = new IsprivilegeUserPresenter();
-		mIsprivilegeUserPresenter.attach(this);
+		mBindPrivilegePresenter = new BindPrivilegeCodePresenter();
+		mBindPrivilegePresenter.attach(this);
 		Logger.GetInstance().Debug("AllShopActivity onCreate");
 	}
-
+	
 	private void fetchLastedAllshopDataOnRefresh(){
 		mAllshopPresenter.attach(new RestartView());
 		mAllshopPresenter.fetchLastestAllShopData();
 	}
-
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		mIsprivilegeUserPresenter.isPrivilegeUser();
+		mBindPrivilegePresenter.isPrivilegeUser();
 		Logger.GetInstance().Track("AllShopActivity on onResume");
 	}
 	@Override
@@ -114,7 +105,6 @@ public class AllShopActivity extends Activity implements OnClickListener,IsPrivi
 	@Override
 	protected void onDestroy() {
 		mAllshopPresenter.detach();
-		mIsprivilegeUserPresenter.detach();
 		super.onDestroy();
 	}
 	@Override
@@ -124,11 +114,11 @@ public class AllShopActivity extends Activity implements OnClickListener,IsPrivi
         }
 		return super.onKeyDown(keyCode, event);
 	}
-
+	
 	private void stopSpecialFragAutoMsgSend(){
 		((AllShopSpecialFragment) mFragList.get(0)).stopAutoMsgSend();
 	}
-
+	
 	private void findView(){
 		mProgressBar = new SimpleProgressBar((ImageView) findViewById(R.id.infoOperating));
 		mPullToRefreshScrollView = (PullToRefreshScrollView) findViewById(R.id.allshopsrcoll);
@@ -158,12 +148,8 @@ public class AllShopActivity extends Activity implements OnClickListener,IsPrivi
 		salerName = (TextView) findViewById(R.id.salername);
 		shopName.setText(ClosingRefInfoMgr.getInstance().getSalerInfo().getShopName());
 		salerName.setText("销售 : "+ClosingRefInfoMgr.getInstance().getSalerName() + ClosingRefInfoMgr.getInstance().getUserName());
-		mTop = (ViewGroup) findViewById(R.id.top);
-		privilege_icon = (ImageView) findViewById(R.id.allshop_privilege_icon);
-		privilege_tv = (TextView) findViewById(R.id.allshop_privilege_desc);
-		hndfBtn = (ImageButton) findViewById(R.id.backbtn);
 	}
-
+	
 	private void findFragment(){
 		AllShopSpecialFragment specialFragment = (AllShopSpecialFragment) getFragmentManager().findFragmentById(R.id.special_frag);
 		AllShopCateFragment cateFragment = (AllShopCateFragment)getFragmentManager().findFragmentById(R.id.cate_frag);
@@ -178,7 +164,7 @@ public class AllShopActivity extends Activity implements OnClickListener,IsPrivi
 		mFragList.add(recommendFragment);
 		mFragList.add(flashSaleFragment);
 	}
-
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -239,7 +225,7 @@ public class AllShopActivity extends Activity implements OnClickListener,IsPrivi
 			}
 		});
 	}
-
+	
 	private void jumpToShopcatActivity() {
 		Intent it = new Intent();
 		it.setClass(this, ShopCartActivity.class);
@@ -260,7 +246,7 @@ public class AllShopActivity extends Activity implements OnClickListener,IsPrivi
 		it.setClass(this, BrandActivity.class);
 		startActivity(it);
 	}
-
+	
 	public void startProgress() {
 		mProgressBar.startProgress();
 	}
@@ -269,27 +255,22 @@ public class AllShopActivity extends Activity implements OnClickListener,IsPrivi
 	}
 
 	@Override
-	public void isPrivilegeUser() {
-		mTop.setBackgroundResource(R.drawable.allshop_privilege_bg);
-		privilege_icon.setVisibility(View.VISIBLE);
-		privilege_tv.setVisibility(View.VISIBLE);
-		shopName.setTextColor(Color.rgb(255,255,255));
-		salerName.setTextColor(Color.rgb(255,255,255));
-		hndfBtn.setBackgroundResource(R.drawable.allshop_privilege_nhdf);
+	public void showMyPrivilegeInfo(PrivilegeInfo info) {
+
+	}
+
+	@Override
+	public void ShowExceptionInfo() {
+
 	}
 
 	@Override
 	public void isNotPrivilegeUser() {
-		mTop.setBackgroundResource(R.color.ffffff);
-		privilege_tv.setVisibility(View.GONE);
-		privilege_icon.setVisibility(View.GONE);
-		shopName.setTextColor(Color.rgb(238,118,26));
-		salerName.setTextColor(Color.rgb(153,153,153));
-		hndfBtn.setBackgroundResource(R.drawable.hhyglogo);
+
 	}
 
 	@Override
-	public void isPrivilegeExceptionView(){
+	public void cancelBindStatus() {
 
 	}
 
@@ -336,17 +317,17 @@ public class AllShopActivity extends Activity implements OnClickListener,IsPrivi
 			setContent();
 			postable = true;
 		}
-
+		
 	}
 	private void setAllShopCreatContent() {
 		Logger.GetInstance().Debug("AllShopActivity SetContent");
 		setContent();
 	}
-
+	
 	private void setContent(){
 		for(AllShopBaseFragment frag:mFragList){
 			frag.setLastestContent();
 		}
 	}
-
+	
 }

@@ -1,0 +1,11 @@
+package com.hhyg.TyClosing.presenter;
+
+/**
+ * Created by user on 2017/5/24.
+ */
+
+public class IsprivilegeUserPresenter extends BasePresenter{
+
+
+
+}

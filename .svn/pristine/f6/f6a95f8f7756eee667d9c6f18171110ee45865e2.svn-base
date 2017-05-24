@@ -58,7 +58,6 @@ public class BindPrivilegeCodePresenter extends BasePresenter<BindPrivilegeView>
         param.put("codes",code);
         param.put("platformId",3);
         return param.toString();
-
     }
 
     private String makeMyPrivilegeParam(){

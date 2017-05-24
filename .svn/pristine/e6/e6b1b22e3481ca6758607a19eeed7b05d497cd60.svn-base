@@ -27,6 +27,7 @@ import com.hhyg.TyClosing.global.MyApplication;
 import com.hhyg.TyClosing.info.PrivilegeInfo;
 import com.hhyg.TyClosing.log.Logger;
 import com.hhyg.TyClosing.mgr.ClosingRefInfoMgr;
+import com.hhyg.TyClosing.presenter.BindPrivilegeCodePresenter;
 import com.hhyg.TyClosing.presenter.BindPrivilegePresenter;
 import com.hhyg.TyClosing.presenter.IsprivilegeUserPresenter;
 import com.hhyg.TyClosing.presenter.MyPrivilegeInfoPresenter;

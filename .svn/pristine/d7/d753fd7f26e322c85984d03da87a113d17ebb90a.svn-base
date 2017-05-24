@@ -304,11 +304,7 @@ public class ActiveSellPresenter extends BasePresenter<SearchGoodView> implement
 			}else{
 				mShoppingCartMgr.addInfo(spu, info.name, info.brandName, 1, info.typeId, info.CitName);
 			}
-			if(!isPrivilege){
-				mShoppingCartMgr.updateActiveId(info.barCode, mActId);
-			}else{
-				mShoppingCartMgr.updateActiveId(info.barCode, "");
-			}
+			mShoppingCartMgr.updateActiveId(info.barCode, mActId);
 			Toast.makeText(MyApplication.GetInstance(), "加入购物车成功", Toast.LENGTH_SHORT).show();
 			if(!isPrivilege){
 				fetchPriceInfo();

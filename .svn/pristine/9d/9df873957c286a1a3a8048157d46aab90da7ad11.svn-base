@@ -196,10 +196,14 @@
             android:orientation="vertical"
             android:paddingLeft="15dp"
             android:paddingTop="15dp">
-                <TextView
+                <com.coorchice.library.SuperTextView
                     android:id="@+id/privilege_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:text_stroke="true"
+                    app:text_stroke_width="1dp"
+                    app:text_fill_color="@color/ffffff"
+                    app:stroke_width="0dp"
                     android:textSize="24sp"
                     />
                 <TextView

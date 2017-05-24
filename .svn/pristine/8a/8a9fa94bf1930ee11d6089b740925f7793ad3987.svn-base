@@ -128,7 +128,8 @@ public class OrderConformActivity extends Activity {
         }
 
         //有特权码商品
-        if("0".equals(jsonObject.getString("SpecialCount")) == false){
+        //if("1".equals(jsonObject.getString("available1"))){
+        if(1 < 2){
             View t = findViewById(R.id.textview_title71);
             t.setVisibility(View.VISIBLE);
 
@@ -140,8 +141,7 @@ public class OrderConformActivity extends Activity {
 
             TextView text = (TextView)findViewById(R.id.textview_no_hongbao);
             text.setText("*订单商品使用了特权码活动，不可再使用红包了哦~");
-            text.setTextColor(android.graphics.Color.parseColor("#ff0000"));
-            text.setTextSize(13);
+            text.setTextColor(android.graphics.Color.parseColor("#0000ff"));
             t.setVisibility(View.VISIBLE);
         }
 
