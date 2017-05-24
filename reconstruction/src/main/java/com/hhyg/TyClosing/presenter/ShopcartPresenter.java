@@ -63,12 +63,12 @@ public class ShopcartPresenter extends BasePresenter<ShopCartView> implements On
 	
 	protected String makeJsonString() {
 		JSONObject param = new JSONObject();
-		param.put("op", "getbybarcode");
 		param.put("imei", MyApplication.GetInstance().getAndroidId());
 		param.put("shopid", ClosingRefInfoMgr.getInstance().getShopId());
 		param.put("channel", ClosingRefInfoMgr.getInstance().getChannelId());
 		param.put("saler_id", ClosingRefInfoMgr.getInstance().getSalerId());
 		param.put("deliverplace", ClosingRefInfoMgr.getInstance().getCurPickupId());
+		param.put("platformid",3);
 		JSONArray dataArr = new JSONArray();
 		for(ShoppingCartInfo cartInfo : mInfoList){
 			JSONObject jobj = new JSONObject();

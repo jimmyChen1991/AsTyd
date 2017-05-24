@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.coorchice.library.SuperTextView;
 import com.hhyg.TyClosing.R;
 import com.hhyg.TyClosing.config.Constants;
 import com.hhyg.TyClosing.global.INetWorkCallBack;
@@ -38,8 +37,6 @@ import com.hhyg.TyClosing.util.Validate;
 import com.hhyg.TyClosing.view.BindPrivilegeView;
 import com.umeng.analytics.MobclickAgent;
 
-import java.util.ArrayList;
-
 import static com.hhyg.TyClosing.config.Constants.IS_DEBUG_MODE;
 
 /**
@@ -51,16 +48,9 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
     private MyApplication mApp = MyApplication.GetInstance();
     private SearchCallBack mCallBack = new SearchCallBack();
     private ViewGroup mBindWrap;
-    private ViewGroup mPrivilegeInfoWrap;
     private AutoClearEditText mEditText;
     private Button mBindprivilegeBtn;
     private BindPrivilegeCodePresenter mPresenter;
-    private SuperTextView mPrivilegeTitle_Tv;
-    private TextView mTime_Tv;
-    private TextView mDiscount_desc_Tv;
-    private TextView mDetail_desc_Tv;
-    private Button mCancelBindBtn;
-    private Button mMoreGoods;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.salermainpage);
@@ -125,49 +115,7 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
             }
         });
         mEditText.setNormalDrawable(null);
-        if(IS_DEBUG_MODE){
-            mEditText.setText("H3S1634G");
-        }
         mBindWrap = (ViewGroup) findViewById(R.id.bindcode_wrap);
-        mPrivilegeInfoWrap = (ViewGroup) findViewById(R.id.privilege_info_wrap);
-        mPrivilegeTitle_Tv = (SuperTextView) findViewById(R.id.privilege_title);
-        mDiscount_desc_Tv = (TextView) findViewById(R.id.discount_des);
-        mTime_Tv = (TextView) findViewById(R.id.time_tv);
-        mDetail_desc_Tv = (TextView) findViewById(R.id.detail_desc);
-        mCancelBindBtn = (Button) findViewById(R.id.cancel_bind_btn);
-        mMoreGoods = (Button) findViewById(R.id.privilege_goods);
-        mMoreGoods.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PrivilegeInfo info = (PrivilegeInfo) v.getTag();
-                if(info == null){
-                    return;
-                }
-                ArrayList<String> activities = info.getActivityCodes();
-                if(activities == null){
-                    ToastUtil.getShortToastByString(SalerMainPageActivity.this,"该特权码无活动");
-                    return;
-                }
-                StringBuilder sb = new StringBuilder();
-                for(String activity : activities){
-                    sb.append(activity);
-                    sb.append(",");
-                }
-                Intent it = new Intent();
-                it.setClass(SalerMainPageActivity.this,ActiveSellActivity.class);
-                it.putExtra("activeId",sb.toString());
-                it.putExtra("isPrivilege",true);
-                it.putExtra("privilegeName",info.getTitle());
-                startActivity(it);
-            }
-        });
-        mCancelBindBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.cancelBindStatus();
-            }
-        });
-
         Button btn1 = (Button) findViewById(R.id.logout);
         btn1.setOnClickListener(new  View.OnClickListener() {
             @Override public void onClick(View v) {
@@ -259,11 +207,7 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
 
     @Override
     public void showMyPrivilegeInfo(PrivilegeInfo info) {
-        mPrivilegeInfoWrap.setVisibility(View.VISIBLE);
-        mPrivilegeTitle_Tv.setText(info.getTitle());
-        mDiscount_desc_Tv.setText(info.getDiscountDesc());
-        mDetail_desc_Tv.setText(info.getDetailDesc());
-        mMoreGoods.setTag(info);
+
     }
 
     @Override
@@ -273,12 +217,6 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
 
     @Override
     public void isNotPrivilegeUser() {
-        mBindWrap.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void cancelBindStatus() {
-        mPrivilegeInfoWrap.setVisibility(View.GONE);
         mBindWrap.setVisibility(View.VISIBLE);
     }
 

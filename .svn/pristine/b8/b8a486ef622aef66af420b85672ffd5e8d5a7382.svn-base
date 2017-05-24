@@ -62,7 +62,6 @@ public class ActiveSellActivity extends Activity implements SearchGoodView,View.
 	private ArrayList<SearchBaseFragment> fragments;
 	private final String ACTIVE_ID = "activeId";
 	private ProgressBar mProgressBar;
-	private boolean isPrivilege;
 	public void openDrawer(){
 		Drawer.openDrawer(Gravity.RIGHT);
 	} 
@@ -107,12 +106,7 @@ public class ActiveSellActivity extends Activity implements SearchGoodView,View.
 			Toast.makeText(this, "活动ID异常", Toast.LENGTH_SHORT).show();
 			finish();
 		}
-		isPrivilege = getIntent().getBooleanExtra("isPrivilege",false);
-		mSearchGoodPresenter = new ActiveSellPresenter(mSearchGoodMgr,getIntent().getStringExtra(ACTIVE_ID),isPrivilege);
-		if(isPrivilege){
-			mSearchGoodPresenter.setPrivilegeName(getIntent().getStringExtra("privilegeName"));
-			mGoodListFragment.setPrivilegeView();
-		}
+		mSearchGoodPresenter = new ActiveSellPresenter(mSearchGoodMgr,getIntent().getStringExtra(ACTIVE_ID));
 		mGoodListFragment.setListener(mSearchGoodPresenter);
 		fragments = new ArrayList<>();
 		mSearchCateContentFragment = new SearchCateContentFragment(new DrawerTitle() {
@@ -157,9 +151,7 @@ public class ActiveSellActivity extends Activity implements SearchGoodView,View.
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if(!isPrivilege){
-			mSearchGoodPresenter.fetchData();
-		}
+		mSearchGoodPresenter.fetchData();
 		MobclickAgent.onResume(this);
 		MobclickAgent.onPageStart("GoodListActivity");
         Logger.GetInstance().Track("GoodListActivity on onResume");

@@ -9,14 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="50dip"
         android:layout_alignParentTop="true" >
-
+        <ImageView
+            android:id="@+id/privilege_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dip"
+            android:background="@drawable/shopcart_privilege_icon"/>
         <TextView
             android:id="@+id/typeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dip"
+            android:layout_toRightOf="@+id/privilege_icon"
+            android:layout_marginLeft="10dip"
             android:paddingLeft="3dip"
             android:paddingRight="3dip"
             android:background="@drawable/btnshape"

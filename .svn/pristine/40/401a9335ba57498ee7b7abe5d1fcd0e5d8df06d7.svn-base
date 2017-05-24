@@ -37,9 +37,4 @@
   
   <item type="id" name="about_version_code">false</item>
   <item type="id" name="split">false</item>
-
-  <item type="id" name="flash_imglayout" />
-  <item type="id" name="flash_brandname" />
-  <item type="id" name="flash_name" />
-  <item type="id" name="flash_indictor" />
 </resources>

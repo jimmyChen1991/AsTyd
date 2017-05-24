@@ -66,6 +66,7 @@ public class ShopCartProc implements ProcMsgHelper{
 					aInfo.setType(column_JOBJ.getString("type"));
 					aInfo.setType_name(column_JOBJ.getString("type_name"));
 					aInfo.setComments(column_JOBJ.getString("desc_fee"));
+					aInfo.setPrivilegeType(column_JOBJ.getIntValue("isprivilege"));
 					aColumns.setaInfo(aInfo);
 				}else{
 					aInfo.setType(ActiveType.NoStock);

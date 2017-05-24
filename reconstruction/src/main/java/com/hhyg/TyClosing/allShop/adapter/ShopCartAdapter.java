@@ -79,6 +79,7 @@ public class ShopCartAdapter extends BaseAdapter{
 		public TextView discount;
 		public InSideListView itemLv;
 		public ViewGroup castWrap;
+		public ImageView privilegeIcon;
 	}
 	
 	
@@ -119,6 +120,7 @@ public class ShopCartAdapter extends BaseAdapter{
 			viewHolder.realCast = (TextView) convertView.findViewById(R.id.xj);
 			viewHolder.castWrap = (ViewGroup) convertView.findViewById(R.id.cast);
 			viewHolder.itemLv = (InSideListView) convertView.findViewById(R.id.lv);
+			viewHolder.privilegeIcon = (ImageView) convertView.findViewById(R.id.privilege_icon);
 			convertView.setTag(viewHolder);
 		}else{
 			viewHolder = (ViewHolder) convertView.getTag();
@@ -158,6 +160,11 @@ public class ShopCartAdapter extends BaseAdapter{
 			viewHolder.shortDesc.setTag(aInfo);
 			viewHolder.realCast.setText(column.getReal_cast());
 			viewHolder.discount.setText(column.getDiscount());
+		}
+		if(aInfo != null && aInfo.getPrivilegeType() == ActiveInfo.PrivilegeType.PRIVILEGE_TYPE){
+			viewHolder.privilegeIcon.setVisibility(View.VISIBLE);
+		}else{
+			viewHolder.privilegeIcon.setVisibility(View.GONE);
 		}
 		viewHolder.shortDesc.setOnClickListener(new ActiveSellListener());
 		return convertView;

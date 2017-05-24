@@ -125,9 +125,6 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
             }
         });
         mEditText.setNormalDrawable(null);
-        if(IS_DEBUG_MODE){
-            mEditText.setText("H3S1634G");
-        }
         mBindWrap = (ViewGroup) findViewById(R.id.bindcode_wrap);
         mPrivilegeInfoWrap = (ViewGroup) findViewById(R.id.privilege_info_wrap);
         mPrivilegeTitle_Tv = (SuperTextView) findViewById(R.id.privilege_title);
@@ -139,11 +136,7 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
         mMoreGoods.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PrivilegeInfo info = (PrivilegeInfo) v.getTag();
-                if(info == null){
-                    return;
-                }
-                ArrayList<String> activities = info.getActivityCodes();
+                ArrayList<String> activities = (ArrayList<String>) v.getTag();
                 if(activities == null){
                     ToastUtil.getShortToastByString(SalerMainPageActivity.this,"该特权码无活动");
                     return;
@@ -156,8 +149,6 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
                 Intent it = new Intent();
                 it.setClass(SalerMainPageActivity.this,ActiveSellActivity.class);
                 it.putExtra("activeId",sb.toString());
-                it.putExtra("isPrivilege",true);
-                it.putExtra("privilegeName",info.getTitle());
                 startActivity(it);
             }
         });
@@ -263,7 +254,7 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
         mPrivilegeTitle_Tv.setText(info.getTitle());
         mDiscount_desc_Tv.setText(info.getDiscountDesc());
         mDetail_desc_Tv.setText(info.getDetailDesc());
-        mMoreGoods.setTag(info);
+        mMoreGoods.setTag(info.getActivityCodes());
     }
 
     @Override

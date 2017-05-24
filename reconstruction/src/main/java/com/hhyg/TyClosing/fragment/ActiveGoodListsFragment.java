@@ -74,6 +74,13 @@ public class ActiveGoodListsFragment extends Fragment implements View.OnClickLis
 		this.listener = listener;
 		mAdapter.setAddListener(this.listener);
 	}
+
+	public void setPrivilegeView(){
+		cast.setVisibility(View.GONE);
+		cut.setVisibility(View.GONE);
+		fullReduceView.setVisibility(View.GONE);
+	}
+
 	private void init() {
 		mGoodListActivity = (ActiveSellActivity)getActivity();
 		mSearchGoodMgr = mGoodListActivity.getSerchGoodMgr();

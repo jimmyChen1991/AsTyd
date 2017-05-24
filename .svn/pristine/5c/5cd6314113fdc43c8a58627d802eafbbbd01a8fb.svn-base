@@ -75,6 +75,4 @@
     <string name="privilege_code">特权码</string>
     <string name="bind">绑定</string>
     <string name="cancel_bind">取消绑定</string>
-    <string name="detail_desc">详细说明:</string>
-    <string name="privilege_good">适用商品></string>
 </resources>

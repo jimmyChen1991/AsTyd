@@ -26,7 +26,7 @@ import android.os.Message;
 import android.widget.Toast;
 public class ActiveSellPresenter extends BasePresenter<SearchGoodView> implements ItemAddListener{
 	private SearchInfo mSearchInfo;
-	private String SEARCHGOOD_URI = Constants.getIndexUrl()+"?r=active/activelist";
+	private String SEARCHGOOD_URI;
 	private String mActId;
 	private ActiveGoodProc mSessionSearchGoodProc;
 	private FirstActiveGoodProc mFirstSearchGoodPrco;
@@ -35,12 +35,20 @@ public class ActiveSellPresenter extends BasePresenter<SearchGoodView> implement
 	private UiHandler mUiHandler;
 	private SrollUiHandler mSrollUiHandler;
 	private ShoppingCartMgr mShoppingCartMgr = ShoppingCartMgr.getInstance();
-	public ActiveSellPresenter(SearchGoodMgr mgr,String activeId) {
+	private boolean isPrivilege;
+	private String privilegeName;
+	public ActiveSellPresenter(SearchGoodMgr mgr,String activeId,boolean isPrivilege) {
 		super();
 		mSearchGoodMgr = mgr;
 		mActId = activeId;
+		this.isPrivilege = isPrivilege;
 		init();
 	}
+
+	public void setPrivilegeName(String privilegeName) {
+		this.privilegeName = privilegeName;
+	}
+
 	@Override
 	public void attach(SearchGoodView view) {
 		super.attach(view);
@@ -110,8 +118,12 @@ public class ActiveSellPresenter extends BasePresenter<SearchGoodView> implement
 			param.put("shopid", ClosingRefInfoMgr.getInstance().getShopId());
 			param.put("channel", ClosingRefInfoMgr.getInstance().getChannelId());
 			param.put("op", "activegoods");
+			param.put("platformid",3);
 			JSONObject data = new JSONObject();
 			data.put("activityid", mActId);
+			if(privilegeName != null){
+				data.put("title",privilegeName);
+			}
 			if(mSearchInfo.cateId != null){
 				data.put("cat_id", mSearchInfo.cateId);
 			}
@@ -153,18 +165,6 @@ public class ActiveSellPresenter extends BasePresenter<SearchGoodView> implement
 			param.put("data", data);
 		return param.toString();
 	}
-	
-	private Handler checkHandler = new Handler(){
-		@Override
-		public void dispatchMessage(Message msg) {
-			if(msg.what == 4){
-				Toast.makeText(MyApplication.GetInstance(), (String) msg.obj, Toast.LENGTH_LONG).show();
-				if(mView != null){
-					mView.setNullShopContent();
-				}
-			}
-		}
-	};
 	
 	class UiHandler extends Handler{
 		@Override
@@ -264,6 +264,7 @@ public class ActiveSellPresenter extends BasePresenter<SearchGoodView> implement
 	}
 	
 	private void init(){
+		SEARCHGOOD_URI = isPrivilege ? Constants.getIndexUrl() + "?r=active/privilegelist" : Constants.getIndexUrl()+"?r=active/activelist";
 		mUiHandler = new UiHandler();
 		mSrollUiHandler = new SrollUiHandler();
 		mSessionSearchGoodProc = new ActiveGoodProc();
@@ -305,7 +306,9 @@ public class ActiveSellPresenter extends BasePresenter<SearchGoodView> implement
 			}
 			mShoppingCartMgr.updateActiveId(info.barCode, mActId);
 			Toast.makeText(MyApplication.GetInstance(), "加入购物车成功", Toast.LENGTH_SHORT).show();
-			fetchPriceInfo();
+			if(!isPrivilege){
+				fetchPriceInfo();
+			}
 		}
 	}
 	
@@ -339,12 +342,12 @@ public class ActiveSellPresenter extends BasePresenter<SearchGoodView> implement
 	
 	protected String makeJsonString() {
 		JSONObject param = new JSONObject();
-		param.put("op", "getbybarcode");
 		param.put("imei", MyApplication.GetInstance().getAndroidId());
 		param.put("shopid", ClosingRefInfoMgr.getInstance().getShopId());
 		param.put("channel", ClosingRefInfoMgr.getInstance().getChannelId());
 		param.put("saler_id", ClosingRefInfoMgr.getInstance().getSalerId());
 		param.put("deliverplace", ClosingRefInfoMgr.getInstance().getCurPickupId());
+		param.put("platformid",3);
 		JSONArray dataArr = new JSONArray();
 		for(ShoppingCartInfo cartInfo : ShoppingCartMgr.getInstance().getAll()){
 			if(cartInfo.activeId.equals(mActId)){
