@@ -44,4 +44,6 @@
   <item type="id" name="flash_indictor" />
   <item type="id" name="flash_activeprice" />
   <item type="id" name="flash_citprice"/>
+  <item type="id" name="imagebrand_image"/>
+  <item type="id" name="imagebrand_split"/>
 </resources>

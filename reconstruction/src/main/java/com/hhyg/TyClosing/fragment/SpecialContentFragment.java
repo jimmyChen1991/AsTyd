@@ -10,6 +10,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ public class SpecialContentFragment extends Fragment{
 	private GridView mGridView;
 	private MyAdapter mAdapter;
 	private ReCommendInfo mReCommendInfo;
+	public SpecialContentFragment(){super();}
+	@SuppressLint("ValidFragment")
 	public SpecialContentFragment(ReCommendInfo ReCommendInfo) {
 		this.mReCommendInfo = ReCommendInfo;
 	}

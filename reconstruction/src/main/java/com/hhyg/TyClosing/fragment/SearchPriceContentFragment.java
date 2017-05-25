@@ -10,6 +10,7 @@ import com.hhyg.TyClosing.allShop.mgr.SearchGoodMgr;
 import com.hhyg.TyClosing.config.Constants;
 import com.hhyg.TyClosing.ui.view.DrawerTitle;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ public class SearchPriceContentFragment extends SearchBaseFragment implements On
 	public SearchPriceContentFragment() {
 		super();
 	}
+	@SuppressLint("ValidFragment")
 	public SearchPriceContentFragment(DrawerTitle t, SearchGoodMgr mgr) {
 		super(t, mgr);
 		// TODO Auto-generated constructor stub

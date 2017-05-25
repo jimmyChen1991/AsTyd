@@ -88,7 +88,7 @@ public class ShoppingCartMgr {
     	ShoppingCartInfo info = null;
     	int pos = findPos(barCode);
     	if(pos >=0) {
-    		info = mInfoList.get(pos);
+    		info = getAll().get(pos);
     	}
     	return info;
     }
@@ -157,19 +157,19 @@ public class ShoppingCartMgr {
     public void deleteInfo(String barCode) {
     	int pos = findPos(barCode);
     	if(pos >= 0) {
-    		mInfoList.remove(pos);
+			getAll().remove(pos);
     		mDao.deleteSpuInfo(barCode);
     	}
     }
     public void clear() {
-    	mInfoList.clear();
+		getAll().clear();
     	mDao.clearAll();  	
     }
     private int findPos(String barCode) {
     	int pos = -1;
-    	int cnt = mInfoList.size();
+    	int cnt = getAll().size();
     	for(int idx = 0; idx <cnt; idx++) {
-    		if(barCode.equals(mInfoList.get(idx).barCode)) {
+    		if(barCode.equals(getAll().get(idx).barCode)) {
     			pos = idx;
     			break;
     		}
@@ -179,7 +179,7 @@ public class ShoppingCartMgr {
     
     private int findLastActiveIdPos(String activeId) {
     	int pos = -1;
-    	int cnt = mInfoList.size();
+    	int cnt = getAll().size();
     	for(int idx = 0; idx < cnt; idx++) {
     		if(activeId.equals(mInfoList.get(idx).activeId)) {
     			pos = idx;

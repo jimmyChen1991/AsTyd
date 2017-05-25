@@ -201,6 +201,7 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
         mIsprivilegeUserPresenter.detach();
         mBindPresenter.detach();
         mMyPrivilegePresenter.detach();
+        mCancelBindPrivilegePresenter.detach();
     }
 
     @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}

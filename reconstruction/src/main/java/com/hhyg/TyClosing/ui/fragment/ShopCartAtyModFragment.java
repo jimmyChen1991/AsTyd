@@ -6,6 +6,7 @@ import com.hhyg.TyClosing.R;
 import com.hhyg.TyClosing.info.ActiveInfo;
 import com.hhyg.TyClosing.info.ShopCartItem;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -30,6 +31,7 @@ public class ShopCartAtyModFragment extends DialogFragment{
 	public ShopCartAtyModFragment() {
 		// TODO Auto-generated constructor stub
 	}
+	@SuppressLint("ValidFragment")
 	public ShopCartAtyModFragment(String activeId,ShopCartItem cartItem) {
 		// TODO Auto-generated constructor stub
 		this.activeId = activeId;

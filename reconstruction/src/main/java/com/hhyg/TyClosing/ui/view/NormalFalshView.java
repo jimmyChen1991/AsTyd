@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hhyg.TyClosing.R;
+
 public class NormalFalshView extends BaseFlashView{
 	private TextView mCitPrice;
 	private LayoutParams mCitPriceParams;
@@ -19,9 +21,8 @@ public class NormalFalshView extends BaseFlashView{
 		mCitPrice = new TextView(context);
 		mCitPrice.setTextColor(Color.rgb(204, 204, 204));
 		mCitPrice.setTextSize(12);
-		mCitPrice.setId(104);
 		mCitPriceParams =  new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-		mCitPriceParams.addRule(RelativeLayout.BELOW, 102);
+		mCitPriceParams.addRule(RelativeLayout.BELOW, R.id.flash_name);
 		mCitPrice.setLayoutParams(mCitPriceParams);
 		mPriceLayout.addView(mCitPrice);
 	}

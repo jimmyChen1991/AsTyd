@@ -11,6 +11,7 @@ import com.hhyg.TyClosing.config.Constants;
 import com.hhyg.TyClosing.ui.view.DrawerTitle;
 import com.hhyg.TyClosing.ui.view.InSideListView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ public class SearchCateContentFragment extends SearchBaseFragment implements Vie
 	public SearchCateContentFragment() {
 		super();
 	}
+	@SuppressLint("ValidFragment")
 	public SearchCateContentFragment(DrawerTitle t, SearchGoodMgr mgr) {
 		super(t, mgr);
 	}

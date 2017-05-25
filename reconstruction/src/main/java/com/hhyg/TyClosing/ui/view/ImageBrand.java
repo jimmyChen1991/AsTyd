@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hhyg.TyClosing.R;
+
 public class ImageBrand extends RelativeLayout{
 	private ImageView mImageView;
 	private TextView mBrandName;
@@ -25,15 +27,15 @@ public class ImageBrand extends RelativeLayout{
 		mImgParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
 		mImgParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 		mImageView.setLayoutParams(mImgParams);
-		mImageView.setId(100);
+		mImageView.setId(R.id.imagebrand_image);
 		mSliptParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,2);
-		mSliptParams.addRule(RelativeLayout.BELOW, 100);
+		mSliptParams.addRule(RelativeLayout.BELOW, R.id.imagebrand_image);
 		mSlipt.setLayoutParams(mSliptParams);
 		mSlipt.setBackgroundColor(Color.rgb(102, 102, 102));
-		mSlipt.setId(101);
+		mSlipt.setId(R.id.imagebrand_split);
 		mNameParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
 		mNameParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-		mNameParams.addRule(RelativeLayout.BELOW,101);
+		mNameParams.addRule(RelativeLayout.BELOW,R.id.imagebrand_split);
 		mBrandName.setLayoutParams(mNameParams);
 		this.addView(mImageView);
 		this.addView(mSlipt);
