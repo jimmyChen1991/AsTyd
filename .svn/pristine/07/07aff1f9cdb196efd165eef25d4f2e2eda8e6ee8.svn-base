@@ -3,8 +3,6 @@ package com.hhyg.TyClosing.ui;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -31,7 +28,6 @@ import com.hhyg.TyClosing.info.PrivilegeInfo;
 import com.hhyg.TyClosing.log.Logger;
 import com.hhyg.TyClosing.mgr.ClosingRefInfoMgr;
 import com.hhyg.TyClosing.presenter.BindPrivilegePresenter;
-import com.hhyg.TyClosing.presenter.CancelBindPrivilegePresenter;
 import com.hhyg.TyClosing.presenter.IsprivilegeUserPresenter;
 import com.hhyg.TyClosing.presenter.MyPrivilegeInfoPresenter;
 import com.hhyg.TyClosing.ui.dialog.QuotaQueryDialog;
@@ -41,7 +37,6 @@ import com.hhyg.TyClosing.util.StringUtil;
 import com.hhyg.TyClosing.util.ToastUtil;
 import com.hhyg.TyClosing.util.Validate;
 import com.hhyg.TyClosing.view.BindPrivilegeView;
-import com.hhyg.TyClosing.view.CancelBindPrivilegeView;
 import com.hhyg.TyClosing.view.IsPrivilegeUserView;
 import com.hhyg.TyClosing.view.MyPrivilegeView;
 import com.umeng.analytics.MobclickAgent;
@@ -53,7 +48,7 @@ import static com.hhyg.TyClosing.config.Constants.IS_DEBUG_MODE;
 /**
  * Created by mjf on 2016/11/22.
  */
-public class SalerMainPageActivity extends Activity implements android.text.TextWatcher,BindPrivilegeView,IsPrivilegeUserView,MyPrivilegeView,CancelBindPrivilegeView{
+public class SalerMainPageActivity extends Activity implements android.text.TextWatcher,BindPrivilegeView,IsPrivilegeUserView,MyPrivilegeView{
     private EditText mEdit;
     private Object lock1 = new Object();
     private MyApplication mApp = MyApplication.GetInstance();
@@ -65,7 +60,6 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
     private BindPrivilegePresenter mBindPresenter;
     private IsprivilegeUserPresenter mIsprivilegeUserPresenter;
     private MyPrivilegeInfoPresenter mMyPrivilegePresenter;
-    private CancelBindPrivilegePresenter mCancelBindPrivilegePresenter;
     private TextView mPrivilegeTitle_Tv;
     private TextView mTime_Tv;
     private TextView mDiscount_desc_Tv;
@@ -82,8 +76,7 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
         mBindPresenter.attach(this);
         mMyPrivilegePresenter = new MyPrivilegeInfoPresenter();
         mMyPrivilegePresenter.attach(this);
-        mCancelBindPrivilegePresenter = new CancelBindPrivilegePresenter();
-        mCancelBindPrivilegePresenter.attach(this);
+        mIsprivilegeUserPresenter.isPrivilegeUser();
         Logger.GetInstance().Track("SalerMainPageActivity on Create");
     }
 
@@ -123,10 +116,7 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
         mBindprivilegeBtn.setOnClickListener(new  View.OnClickListener() {
             @Override public void onClick(View v) {
                 final String code = mEditText.getText().toString();
-                mBindPresenter.bindPrivilegeCode(code);
-                mEditText.setText("");
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+
             }
         });
         mEditText = (AutoClearEditText) findViewById(R.id.privilege_code_edit);
@@ -144,6 +134,9 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
             }
         });
         mEditText.setNormalDrawable(null);
+        if(IS_DEBUG_MODE){
+            mEditText.setText("H3S1634G");
+        }
         mBindWrap = (ViewGroup) findViewById(R.id.bindcode_wrap);
         mPrivilegeInfoWrap = (ViewGroup) findViewById(R.id.privilege_info_wrap);
         mPrivilegeTitle_Tv = (TextView) findViewById(R.id.privilege_title);
@@ -180,7 +173,6 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
         mCancelBindBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCancelBindPrivilegePresenter.cancelBindPrivilege((String) v.getTag());
             }
         });
 
@@ -302,16 +294,12 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
 
     @Override
     public void bindSuccess() {
-        mBindWrap.setVisibility(View.GONE);
-        mMyPrivilegePresenter.fetchMyPrivilegeInfo();
-        Intent it = new Intent();
-        it.setAction(getResources().getString(R.string.privilege_unbind_receiver));
-        sendBroadcast(it);
+
     }
 
     @Override
     public void bindFailed(String reason) {
-        ToastUtil.getShortToastByString(SalerMainPageActivity.this,reason);
+
     }
 
     @Override
@@ -320,23 +308,7 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
         mPrivilegeTitle_Tv.setText(info.getTitle());
         mDiscount_desc_Tv.setText(info.getDiscountDesc());
         mDetail_desc_Tv.setText(info.getDetailDesc());
-        mTime_Tv.setText(info.getStartTime() + " ---- " + info.getEndTime());
-        mCancelBindBtn.setTag(info.getCode());
         mMoreGoods.setTag(info);
-    }
-
-    @Override
-    public void cancelBindSuccess() {
-        mPrivilegeInfoWrap.setVisibility(View.GONE);
-        mBindWrap.setVisibility(View.VISIBLE);
-        Intent it = new Intent();
-        it.setAction(getResources().getString(R.string.privilege_unbind_receiver));
-        sendBroadcast(it);
-    }
-
-    @Override
-    public void cancelBindFailed(String reason) {
-        ToastUtil.getShortToastByString(SalerMainPageActivity.this,reason);
     }
 
     private class SearchCallBack implements INetWorkCallBack {
@@ -387,7 +359,6 @@ public class SalerMainPageActivity extends Activity implements android.text.Text
 
     protected void onResume() {
         super.onResume();
-        mIsprivilegeUserPresenter.isPrivilegeUser();
         MobclickAgent.onResume(this);
         MobclickAgent.onPageStart("SalerMainPageActivity on onPause");
     }

@@ -29,10 +29,7 @@ import com.hhyg.TyClosing.view.IsPrivilegeUserView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -41,7 +38,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -67,7 +63,6 @@ public class AllShopActivity extends Activity implements OnClickListener,IsPrivi
 	private ImageView privilege_icon;
 	private TextView privilege_tv;
 	private boolean postable = false;
-	private BroadcastReceiver mReceiver;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,15 +78,6 @@ public class AllShopActivity extends Activity implements OnClickListener,IsPrivi
 		mAllshopPresenter.fetchLastestAllShopData();
 		mIsprivilegeUserPresenter = new IsprivilegeUserPresenter();
 		mIsprivilegeUserPresenter.attach(this);
-		mReceiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				fetchLastedAllshopDataOnRefresh();
-			}
-		};
-		IntentFilter itFilter = new IntentFilter();
-		itFilter.addAction(getResources().getString(R.string.privilege_unbind_receiver));
-		registerReceiver(mReceiver,itFilter);
 		Logger.GetInstance().Debug("AllShopActivity onCreate");
 	}
 
@@ -104,8 +90,6 @@ public class AllShopActivity extends Activity implements OnClickListener,IsPrivi
 	protected void onResume() {
 		super.onResume();
 		mIsprivilegeUserPresenter.isPrivilegeUser();
-//		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//		imm.hideSoftInputFromWindow(, 0); //强制隐藏键盘
 		Logger.GetInstance().Track("AllShopActivity on onResume");
 	}
 	@Override
@@ -127,7 +111,6 @@ public class AllShopActivity extends Activity implements OnClickListener,IsPrivi
 	protected void onDestroy() {
 		mAllshopPresenter.detach();
 		mIsprivilegeUserPresenter.detach();
-		unregisterReceiver(mReceiver);
 		super.onDestroy();
 	}
 	@Override

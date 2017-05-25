@@ -10,7 +10,7 @@ import com.hhyg.TyClosing.global.MyApplication;
 import com.hhyg.TyClosing.global.NetCallBackHandlerException;
 import com.hhyg.TyClosing.global.ProcMsgHelper;
 import com.hhyg.TyClosing.mgr.ClosingRefInfoMgr;
-import com.hhyg.TyClosing.view.BindPrivilegeView;
+import com.hhyg.TyClosing.view.CancelBindPrivilegeView;
 
 import java.io.IOException;
 
@@ -18,19 +18,19 @@ import java.io.IOException;
  * Created by user on 2017/5/24.
  */
 
-public class BindPrivilegePresenter extends BasePresenter<BindPrivilegeView> {
+public class CancelBindPrivilegePresenter extends BasePresenter<CancelBindPrivilegeView>{
 
-    private final String BIND_URL = Constants.getIndexUrl() + "?r=privilege/bound";
-    private final BindPrivilegeExceptionHandler mExceptionHandler = new BindPrivilegeExceptionHandler();
-    private final BindPrivilegeProc mProc = new BindPrivilegeProc();
+    private final String CANCELBIND_URL = Constants.getIndexUrl() + "?r=privilege/unbound";
+    private final CancelBindPrivilegeExceptionHandler mException = new CancelBindPrivilegeExceptionHandler();
+    private final CancelBingPrivilegeProc mProc = new CancelBingPrivilegeProc();
 
-    public void bindPrivilegeCode(String code){
-        mHttpRequester.post(BIND_URL,makeBindParam(code),new NetCallBackHandlerException(mExceptionHandler,mProc));
+    public void cancelBindPrivilege(String code){
+        mHttpRequester.post(CANCELBIND_URL,makeCancelParam(code),new NetCallBackHandlerException(mException,mProc));
     }
 
-    private String makeBindParam(String code){
+    private String makeCancelParam(String code){
         JSONObject param = new JSONObject();
-        param.put("op", "privilege_bound");
+        param.put("op", "privilege_unbound");
         param.put("imei", MyApplication.GetInstance().getAndroidId());
         param.put("shopid", ClosingRefInfoMgr.getInstance().getShopId());
         param.put("channel", ClosingRefInfoMgr.getInstance().getChannelId());
@@ -39,28 +39,27 @@ public class BindPrivilegePresenter extends BasePresenter<BindPrivilegeView> {
         return param.toString();
     }
 
-    class BindPrivilegeExceptionHandler extends SimpleHandler{
+    class CancelBindPrivilegeExceptionHandler extends SimpleHandler{
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if(mView != null && msg.what == 4){
-                mView.bindFailed((String) msg.obj);
+                mView.cancelBindFailed((String) msg.obj);
             }
         }
     }
 
-    class BindPrivilegeProc implements ProcMsgHelper{
+    class CancelBingPrivilegeProc implements ProcMsgHelper{
         @Override
         public void ProcMsg(String msgBody) throws JSONException, IOException {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     if(mView != null){
-                        mView.bindSuccess();
+                        mView.cancelBindSuccess();
                     }
                 }
             });
         }
     }
-
 }
