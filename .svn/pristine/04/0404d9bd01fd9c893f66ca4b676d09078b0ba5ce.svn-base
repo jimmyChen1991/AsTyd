@@ -29,8 +29,10 @@ import com.hhyg.TyClosing.view.IsPrivilegeUserView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -158,7 +160,6 @@ public class AllShopActivity extends Activity implements OnClickListener,IsPrivi
 		privilege_icon = (ImageView) findViewById(R.id.allshop_privilege_icon);
 		privilege_tv = (TextView) findViewById(R.id.allshop_privilege_desc);
 		hndfBtn = (ImageButton) findViewById(R.id.backbtn);
-		findViewById(R.id.go_privilege_wrap).setOnClickListener(this);
 	}
 
 	private void findFragment(){
@@ -200,15 +201,10 @@ public class AllShopActivity extends Activity implements OnClickListener,IsPrivi
 				jumpToShopcatActivity();
 				break;
 			case R.id.backbtn:
+				UserTrackMgr.getInstance().onEvent(" tabartouch","销售员查询");
 				Intent it = new Intent();
 				it.setClass(AllShopActivity.this, SalerMainPageActivity.class);
 				startActivity(it);
-				break;
-			case R.id.go_privilege_wrap:
-				UserTrackMgr.getInstance().onEvent(" tabartouch","销售员查询");
-				Intent intent = new Intent();
-				intent.setClass(AllShopActivity.this, SalerMainPageActivity.class);
-				startActivity(intent);
 		}
 	}
 	private void unregistSaler() {
