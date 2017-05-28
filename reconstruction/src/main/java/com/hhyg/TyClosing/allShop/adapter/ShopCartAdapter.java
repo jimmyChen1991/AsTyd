@@ -196,7 +196,6 @@ public class ShopCartAdapter extends BaseAdapter{
 			TextView cnt;
 			TextView stockInfo;
 			TextView time;
-			ImageView privilege_icon;
 		}
 		
 		@Override
@@ -238,7 +237,6 @@ public class ShopCartAdapter extends BaseAdapter{
 				viewHolder.time = (TextView) convertView.findViewById(R.id.timetoget);
 				viewHolder.img_wrap = (ViewGroup) convertView.findViewById(R.id.imglayout);
 				viewHolder.name_warp = (ViewGroup) convertView.findViewById(R.id.textlayout);
-				viewHolder.privilege_icon = (ImageView) convertView.findViewById(R.id.shopcartlist_item_privilege_icon);
 				convertView.setTag(viewHolder);
 			}else{
 				viewHolder = (ViewHolder) convertView.getTag();
@@ -323,11 +321,6 @@ public class ShopCartAdapter extends BaseAdapter{
 					viewHolder.addCount.setBackgroundResource(R.drawable.button_add);
 				}
 				if(item.getaInfos() != null && item.getaInfos().size() > 1){
-					if(aInfo.getPrivilegeType() == ActiveInfo.PrivilegeType.PRIVILEGE_TYPE){
-						viewHolder.privilege_icon.setVisibility(View.VISIBLE);
-					}else{
-						viewHolder.privilege_icon.setVisibility(View.GONE);
-					}
 					viewHolder.aty_wrap.setVisibility(View.VISIBLE);
 					viewHolder.aty_desc.setText(aInfo.getShort_desc());
 					viewHolder.aty_mod.setOnClickListener(new View.OnClickListener() {

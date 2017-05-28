@@ -38,34 +38,42 @@
     android:textColor="#333333"
     android:textSize="12sp" 
     android:background="#ffffff"/>
+ <RelativeLayout
+     android:id="@+id/price_wrap"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_centerHorizontal="true"
+     android:layout_below="@+id/name"
+     >
+     <TextView
+         android:id="@+id/acviteprice"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="15dp"
+         android:textColor="#C38C56"
+         android:textSize="18sp"
+         android:textStyle="bold"
+         android:background="#ffffff" />
+     <TextView
+         android:id="@+id/citprice"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_toRightOf="@+id/acviteprice"
+         android:layout_marginLeft="5dp"
+         android:textColor="#999999"
+         android:textSize="18sp" />
+ </RelativeLayout>
 <TextView
-    android:id="@+id/acviteprice"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:layout_below="@+id/name"
-    android:textColor="#C38C56"
-    android:textSize="18sp"
-    android:textStyle="bold"
-    android:text="1111"
-    android:background="#ffffff" />
-<TextView
-    android:id="@+id/citprice"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:layout_below="@+id/acviteprice"
-    android:textColor="#999999"
-    android:textSize="12sp" />
-<TextView 
     android:layout_width="match_parent"
     android:layout_height="18dip"
-    android:layout_below="@+id/citprice"
+    android:layout_below="@+id/price_wrap"
     android:background="#ffffff"
     />
 <TextView 
     android:id="@+id/activite_indicator_text"
-    style="@style/activiteIndicator4Text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    style="@style/active_indicator"
     android:layout_alignParentRight="true"
     android:layout_alignParentTop="true"
     android:layout_marginRight="10dip"
@@ -75,10 +83,10 @@
      android:id="@+id/privilege_icon"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     android:background="@drawable/gooditem_privilege_icon"
      android:layout_below="@+id/activite_indicator_text"
      android:layout_alignParentRight="true"
      android:layout_marginRight="10dp"
-     android:layout_marginTop="5dp"
+     android:layout_marginTop="10dp"
+     android:background="@drawable/shopcart_privilege_icon"
      />
 </RelativeLayout>

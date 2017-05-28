@@ -123,7 +123,7 @@ public class ShopCartAtyModFragment extends DialogFragment{
 				convertView = inflater.inflate(R.layout.shopcartitem_atymoddialog_item, null);
 				viewHolder.chosenImg = (ImageView) convertView.findViewById(R.id.chosenimg);
 				viewHolder.itemName = (TextView) convertView.findViewById(R.id.itemname);
-				viewHolder.privilege_icon = (ImageView) convertView.findViewById(R.id.shopcartlistitem_atymoddialogitem_privilege_icon);
+				viewHolder.privilege_icon = (ImageView) convertView.findViewById(R.id.privilege_icon);
 				convertView.setTag(viewHolder);;
 			}else{
 				viewHolder = (ViewHolder) convertView.getTag();

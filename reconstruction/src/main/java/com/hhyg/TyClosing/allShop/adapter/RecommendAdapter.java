@@ -138,19 +138,22 @@ public class RecommendAdapter extends BaseAdapter{
 			final ActiveInfo aInfo = info.activeInfo;
 			if(aInfo == null || aInfo.getType() == null || aInfo.getType() == ActiveInfo.ActiveType.Normal){
 				viewHolder.activiteIndicator.setVisibility(View.INVISIBLE);
-				viewHolder.activePrice.setVisibility(View.INVISIBLE);
-				viewHolder.citPrice.setText(Constants.MIANSHUI_TITLE+info.citPrice);
+				viewHolder.activePrice.setVisibility(View.VISIBLE);
+				viewHolder.activePrice.setText(Constants.PRICE_TITLE+info.citPrice);
+				viewHolder.citPrice.setVisibility(View.GONE);
 			}else if(aInfo.getType() == ActiveType.Cut){
 				viewHolder.activiteIndicator.setVisibility(View.VISIBLE);
 				viewHolder.activiteIndicator.setText(aInfo.getShort_desc());
 				viewHolder.activePrice.setVisibility(View.VISIBLE);
-				viewHolder.activePrice.setText(Constants.ZUXIAO_TITLE+aInfo.getActive_price());
-				viewHolder.citPrice.setText(Constants.MIANSHUI_TITLE+info.citPrice);
+				viewHolder.activePrice.setText(Constants.PRICE_TITLE+aInfo.getActive_price());
+				viewHolder.citPrice.setVisibility(View.VISIBLE);
+				viewHolder.citPrice.setText(Constants.PRICE_TITLE+info.citPrice);
 				viewHolder.citPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 				viewHolder.citPrice.getPaint().setAntiAlias(true);
 			}else{
-				viewHolder.activePrice.setVisibility(View.INVISIBLE);
-				viewHolder.citPrice.setText(Constants.MIANSHUI_TITLE+info.citPrice);
+				viewHolder.activePrice.setVisibility(View.VISIBLE);
+				viewHolder.citPrice.setVisibility(View.GONE);
+				viewHolder.activePrice.setText(Constants.PRICE_TITLE+info.citPrice);
 				viewHolder.activiteIndicator.setVisibility(View.VISIBLE);
 				viewHolder.activiteIndicator.setText(aInfo.getShort_desc());
 			}

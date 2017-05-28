@@ -163,18 +163,11 @@
         android:layout_height="wrap_content"
         android:paddingBottom="5dp"
         android:layout_below="@+id/imglayout" >
-        <ImageView
-            android:id="@+id/shopcartlist_item_privilege_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dip"
-            android:background="@drawable/gooditem_privilege_icon"/>
        <TextView
             android:id="@+id/aty_token"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/shopcartlist_item_privilege_icon"
-            android:layout_marginLeft="5dip"
+            android:layout_marginLeft="25dip"
             android:text="优惠"
             android:textColor="#333333"
             android:textSize="15sp" />

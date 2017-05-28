@@ -11,23 +11,20 @@
             android:id="@+id/chosenimg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:background="@drawable/chosenimg"
             android:visibility="gone" />
     <ImageView
-        android:id="@+id/shopcartlistitem_atymoddialogitem_privilege_icon"
-        android:layout_toRightOf="@+id/chosenimg"
-        android:layout_marginLeft="5dp"
-        android:layout_centerVertical="true"
+        android:id="@+id/privilege_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/gooditem_privilege_icon"/>
+        android:layout_toRightOf="@+id/chosenimg"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/shopcart_privilege_icon"/>
     <TextView
             android:id="@+id/itemname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/shopcartlistitem_atymoddialogitem_privilege_icon"
+            android:layout_toRightOf="@+id/privilege_icon"
             android:layout_marginLeft="15dp"
             android:textColor="#333333"
             android:textSize="18sp" />

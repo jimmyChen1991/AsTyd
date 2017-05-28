@@ -32,7 +32,7 @@ public abstract class BaseFlashView extends RelativeLayout{
 
 	private void initPrivilegeParam(Context context){
 		mPrivilegeIcon = new ImageView(context);
-		mPrivilegeIcon.setBackgroundResource(R.drawable.gooditem_privilege_icon);
+		mPrivilegeIcon.setBackgroundResource(R.drawable.shopcart_privilege_icon);
 		mPrivilegeIconParam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
 		mPrivilegeIconParam.addRule(RelativeLayout.BELOW,R.id.flash_indictor);
 		mPrivilegeIconParam.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
@@ -43,12 +43,13 @@ public abstract class BaseFlashView extends RelativeLayout{
 
 	private void initActiviteIndicator(Context context) {
 		mActiviteIndicator = new TextView(context);
-		mActiviteIndicator.setTextColor(Color.WHITE);
-		mActiviteIndicator.setBackgroundResource(R.drawable.rect_activebg);
+		mActiviteIndicator.setTextColor(getResources().getColor(R.color.maincolor));
+		mActiviteIndicator.setBackgroundResource(R.drawable.btnshape);
 		mActiviteIndicator.setId(R.id.flash_indictor);
-		mActiviteIndicatorParams = new RelativeLayout.LayoutParams(100,RelativeLayout.LayoutParams.WRAP_CONTENT);
+		mActiviteIndicatorParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
 		mActiviteIndicatorParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-		mActiviteIndicator.setTextSize(12);
+		mActiviteIndicator.setTextSize(15);
+		mActiviteIndicator.setPadding(10,3,10,3);
 		mActiviteIndicator.setGravity(Gravity.CENTER);
 		mActiviteIndicator.setLayoutParams(mActiviteIndicatorParams);
 		mActiviteIndicator.setVisibility(View.GONE);

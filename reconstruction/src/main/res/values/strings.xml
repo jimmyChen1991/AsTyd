@@ -72,6 +72,7 @@
     <string name="netconnect_exception">网络异常</string>
     <string name="serverresult_exception">响应数据为空</string>
     <string name="bind_privilege_code">绑定特权码</string>
+    <string name="privilege_label">特权</string>
     <string name="privilege_code">特权码</string>
     <string name="bind">绑定</string>
     <string name="cancel_bind">取消绑定</string>

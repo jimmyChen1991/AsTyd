@@ -20,11 +20,7 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/privilege_icon"
         android:layout_marginLeft="10dip"
-        android:paddingLeft="2dip"
-        android:paddingRight="2dip"
-        android:background="@drawable/btnshape"
-        android:textColor="#C38C56"
-        android:textSize="15sp" />
+        style="@style/active_indicator"/>
 
     <TextView
         android:id="@+id/descriptionTv"
